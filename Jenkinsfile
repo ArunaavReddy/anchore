@@ -75,6 +75,7 @@ node {
 	     docker/docker-bench-security"
     
 	}
+     }
 
   } 
 
