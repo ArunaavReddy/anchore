@@ -59,7 +59,7 @@ node {
         sh """ ls -ltr """  
         sh """ cat anchore_images """  
         anchore name: anchorefile, engineurl: inputConfig['anchoreEngineUrl'], engineCredentialsId: inputConfig['anchoreEngineCredentials'], annotations: [[key: 'added-by', value: 'jenkins']] , autoSubscribeTagUpdates: false, bailOnFail: false, engineRetries: '10000'
-	sh script : """ docker run --rm --net host --pid host --userns host --cap-add audit_control \
+	sh """ docker run --rm --net host --pid host --userns host --cap-add audit_control \
 	    -e DOCKER_CONTENT_TRUST=$DOCKER_CONTENT_TRUST \
 	    -v /etc:/etc:ro \
 	    -v /usr/bin/containerd:/usr/bin/containerd:ro \
