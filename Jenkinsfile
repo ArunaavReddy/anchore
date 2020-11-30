@@ -59,20 +59,22 @@ node {
         sh """ ls -ltr """  
         sh """ cat anchore_images """  
         anchore name: anchorefile, engineurl: inputConfig['anchoreEngineUrl'], engineCredentialsId: inputConfig['anchoreEngineCredentials'], annotations: [[key: 'added-by', value: 'jenkins']] , autoSubscribeTagUpdates: false, bailOnFail: false, engineRetries: '10000'
-      }
+      },
       
-      Docker-Bench-Security :{
+      Docker-Bench-Security : {
+
 	sh script : "docker run --rm --net host --pid host --userns host --cap-add audit_control \
-    -e DOCKER_CONTENT_TRUST=$DOCKER_CONTENT_TRUST \
-    -v /etc:/etc:ro \
-    -v /usr/bin/containerd:/usr/bin/containerd:ro \
-    -v /usr/bin/runc:/usr/bin/runc:ro \
-    -v /usr/lib/systemd:/usr/lib/systemd:ro \
-    -v /var/lib:/var/lib:ro \
-    -v /var/run/docker.sock:/var/run/docker.sock:ro \
-    --label docker_bench_security \
-    docker/docker-bench-security"
-    }
+	    -e DOCKER_CONTENT_TRUST=$DOCKER_CONTENT_TRUST \
+	    -v /etc:/etc:ro \
+	    -v /usr/bin/containerd:/usr/bin/containerd:ro \
+	    -v /usr/bin/runc:/usr/bin/runc:ro \
+	    -v /usr/lib/systemd:/usr/lib/systemd:ro \
+	    -v /var/lib:/var/lib:ro \
+	    -v /var/run/docker.sock:/var/run/docker.sock:ro \
+	    --label docker_bench_security \
+	     docker/docker-bench-security"
+    
+	}
 
   } 
 
