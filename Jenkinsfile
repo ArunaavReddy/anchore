@@ -60,8 +60,10 @@ node {
         sh """ cat anchore_images """  
         anchore name: anchorefile, engineurl: inputConfig['anchoreEngineUrl'], engineCredentialsId: inputConfig['anchoreEngineCredentials'], annotations: [[key: 'added-by', value: 'jenkins']] , autoSubscribeTagUpdates: false, bailOnFail: false, engineRetries: '10000'
       },
-      
-      Docker-Bench-Security : {
+     
+    }
+   
+   stage("Docker-Bench-Security")  {
 
 	sh script : "docker run --rm --net host --pid host --userns host --cap-add audit_control \
 	    -e DOCKER_CONTENT_TRUST=$DOCKER_CONTENT_TRUST \
@@ -75,7 +77,6 @@ node {
 	     docker/docker-bench-security"
     
 	}
-     }
 
   } 
 
